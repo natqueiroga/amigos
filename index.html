@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mensagem Sonora</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #fff130;
+      --muted: #9aa4b2
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color: #e6eef8;
+      background: linear-gradient(180deg, #071026 0%, #071b2a 100%)
+    }
+
+    .wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      text-align: center
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0 0 8px
+    }
+
+    p.small {
+      color: var(--muted);
+      margin: 0 0 18px
+    }
+
+    .field {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px
+    }
+
+    input[type=text] {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      background: transparent;
+      color: inherit;
+      font-size: 16px;
+      text-align: center
+    }
+
+    .big-btn {
+      width: 100%;
+      padding: 18px;
+      border-radius: 12px;
+      border: 0;
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent), #ff6b6b);
+      color: white;
+      box-shadow: 0 8px 18px rgba(255, 59, 48, 0.18);
+      cursor: pointer
+    }
+
+    .result {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.25);
+      color: #fff;
+      font-weight: 600;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    footer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Escreva seu nome no campo abaixo</h1>
+
+      <div class="field">
+        <input id="nome" type="text" placeholder="seu nome" autocomplete="off">
+      </div>
+
+      <button id="speakBtn" class="big-btn">Falar o Recado</button>
+      <div id="result" class="result">Pronto para falar.</div>
+      <footer>Dica: cuidado com o áudio rs</footer>
+    </div>
+  </div>
+
+  <script>
+    const nomeInput = document.getElementById('nome');
+    const speakBtn = document.getElementById('speakBtn');
+    const result = document.getElementById('result');
+
+    function buildMessage() {
+      let nome = nomeInput.value.trim().toLowerCase();
+      const mel = ["melissa"]
+      if (mel.includes(nome)) {
+        return `Te adoro, ${nome.charAt(0).toUpperCase() + nome.slice(1)}! Você é incrível`;
+      }
+
+      const gabs = ["gabriela"]
+      if (gabs.includes(nome)) {
+        return `${nome.charAt(0).toUpperCase() + nome.slice(1)} você merece todo gin do mundo`;
+      }
+
+      const mari = ["mariana"]
+      if (mari.includes(nome)) {
+        return `Você é puro amor, ${nome.charAt(0).toUpperCase() + nome.slice(1)}!`;
+      }
+
+      const na = ["nallanda"]
+      if (na.includes(nome)) {
+        return `Nunca esqueça o quão especial você é, ${nome.charAt(0).toUpperCase() + nome.slice(1)}!`;
+      }
+
+      const livs = ["livia"]
+      if (mel.includes(nome)) {
+        return `${nome.charAt(0).toUpperCase() + nome.slice(1)}, você é simplesmente maravilhosa`;
+      }
+
+      const ceci = ["cecilia"];
+      if (mel.includes(nome)) {
+        return `${nome.charAt(0).toUpperCase() + nome.slice(1)}, você é luz pura`;
+      }
+
+      const aMaisFoda = ["nathalia", "nathália"]
+      if (aMaisFoda.includes(nome)) {
+        return `Você é a mais foda, ${nome.charAt(0).toUpperCase() + nome.slice(1)}! o mundo seria uma merda sem você, icônica, linda, maravilhosa, legal e inteligente`;
+      }
+
+      const toin = ["antonio"]
+      if (toin.includes(nome)) {
+        return `Você é o único homem decente desse grupo, ${nome.charAt(0).toUpperCase() + nome.slice(1)}! parabéns`;
+      }
+
+      const rafa = ["rafael"]
+      if (rafa.includes(nome)) {
+        return `Vai tomar no cu, ${nome.charAt(0).toUpperCase() + nome.slice(1)}!`;
+      }
+
+        const kaua = ["kauã", "kaua"]
+        if (kaua.includes(nome)) {
+          return `Vai se fuder, ${nome.charAt(0).toUpperCase() + nome.slice(1)}!`;
+        } 
+        
+        const vitor = ["vitor", "parra"]
+        if (vitor.includes(nome)) {
+          return `Oi, ${nome.charAt(0).toUpperCase() + nome.slice(1)}!`;
+        } 
+        else {
+          return `Não programei seu nome, ${nome.charAt(0).toUpperCase() + nome.slice(1)}!`;
+        }
+      }
+
+      function speakMessage(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 1.0;
+        speechSynthesis.speak(utterance);
+      }
+
+      speakBtn.addEventListener('click', () => {
+        const msg = buildMessage();
+        speakMessage(msg);
+        result.textContent = `Falando: "${msg}"`;
+      });
+
+      nomeInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { speakBtn.click(); }
+      });
+  </script>
+</body>
+
+</html>
